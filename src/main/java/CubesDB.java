@@ -28,6 +28,8 @@ public class CubesDB {
     protected ResultSet rs;
     protected String fetchAll;
     protected LinkedList<Bot> allBots;
+    protected String tempName;
+    protected double tempTime;
 
     CubesDB() {
         table_name = "cubestbl";
