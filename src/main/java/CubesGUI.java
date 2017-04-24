@@ -17,11 +17,6 @@ public class CubesGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-
+        CubesDB dbManager = new CubesDB();
     }
 }
-
-
-
-
-//https://coderanch.com/t/339603/java/JTable-setting-column-title
