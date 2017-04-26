@@ -28,7 +28,6 @@ public class CubesGUI extends JFrame {
 
         confirmButton.setVisible(false);
 
-// TODO add that list model stuff.
         listModel = new DefaultListModel<Bot>();
         botList.setModel(listModel);
         botList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -36,7 +35,6 @@ public class CubesGUI extends JFrame {
         CubesDB dbManager = new CubesDB();
 
         for (Bot b : dbManager.allBots) {
-// TODO add bot object to list model thing.
             listModel.addElement(b);
         }
 
@@ -49,12 +47,12 @@ public class CubesGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String newName = botTextField.getText();
                 String newTimeStr = timeTextField.getText();
-                while (!verifyName(newName)) {
+                if (!verifyName(newName)) {
                     return;
                 }
 
                 double newTime = verifyTime(newTimeStr);
-                while (newTime == 0) {
+                if (newTime == 0) {
                     return;
                 }
 //                if (newName == "" || newName == null) {
@@ -130,7 +128,7 @@ public class CubesGUI extends JFrame {
                         break;
                     case 2:     // Update
                         newTime = verifyTime(timeTextField.getText());
-                        while (newTime == 0) {
+                        if (newTime == 0) {
                             return;
                         }
 
@@ -162,7 +160,7 @@ public class CubesGUI extends JFrame {
     }
 
     private boolean verifyName(String name) {
-        if (name == "" || name == null) {
+        if (name.equals("") || name == null) {
             JOptionPane.showConfirmDialog(rootPanel, "Please enter a name.",
                     "Need Name", JOptionPane.OK_OPTION);
             return false;

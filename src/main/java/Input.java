@@ -10,7 +10,7 @@ public class Input {
 
         if (input != null) {
 
-            while (true) {
+//            while (true) {
                 try {
                     double doubleInput = Double.parseDouble(input);
                     if (doubleInput >= 0) {
@@ -24,7 +24,7 @@ public class Input {
                     System.out.println("Please type a positive number.");
                 }
             }
-        }
+//        }
         return 0;
     }
 }

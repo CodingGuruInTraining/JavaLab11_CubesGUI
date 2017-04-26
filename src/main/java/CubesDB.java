@@ -9,8 +9,8 @@ public class CubesDB {
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     // Connection string.
     static final String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/cubes";
-    static final String USER = "";
-    static final String PASSWORD = "";
+    static final String USER = "mf8";
+    static final String PASSWORD = "pw1";
 
     // Defines table name variable along with its columns.
     private String table_name;
@@ -24,6 +24,9 @@ public class CubesDB {
     protected PreparedStatement psInsert;
     protected String prepStatUpdate;
     protected PreparedStatement psUpdate;
+    protected String prepStatDelete;
+    protected PreparedStatement psDelete;
+
 
     protected ResultSet rs;
     protected String fetchAll;
@@ -53,11 +56,7 @@ public class CubesDB {
         time_col = "Time_Taken";
 
         allBots = new LinkedList<Bot>();
-
         connectDB();
-
-
-
     }
 
     protected void connectDB() {
