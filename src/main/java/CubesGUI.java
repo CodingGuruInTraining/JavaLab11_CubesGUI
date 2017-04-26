@@ -15,6 +15,7 @@ public class CubesGUI extends JFrame {
     private JList botList;
     private JButton deleteButton;
     private JButton confirmButton;
+    private DefaultListModel<Bot> listModel;
 
     private byte option;
 
@@ -27,10 +28,15 @@ public class CubesGUI extends JFrame {
         confirmButton.setVisible(false);
 
 // TODO add that list model stuff.
+        listModel = new DefaultListModel<Bot>();
+        botList.setModel(listModel);
+        botList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         CubesDB dbManager = new CubesDB();
 
         for (Bot b : dbManager.allBots) {
 // TODO add bot object to list model thing.
+            listModel.addElement(b);
         }
 
 
@@ -43,14 +49,21 @@ public class CubesGUI extends JFrame {
                 String newName = botTextField.getText();
                 if (newName == "" || newName == null) {
 // TODO display a message somehow.
+                    JOptionPane.showConfirmDialog(rootPanel, "Please enter a name.",
+                            "Need Name", JOptionPane.OK_OPTION);
                     return;
                 }
 
                 double newTime = Input.checkDoubleInput(timeTextField.getText());
                 if (newTime == 0) {
 // TODO display a message somehow.
+                    JOptionPane.showConfirmDialog(rootPanel, "Please enter a time",
+                            "Need Time", JOptionPane.OK_OPTION);
                     return;
                 }
+
+                dbManager.setTempName(newName);
+                dbManager.setTempTime(newTime);
 
                 option = 1;
                 confirmButton.setVisible(true);
@@ -79,15 +92,20 @@ public class CubesGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 switch (option) {
                     case 1:     // Add
-//                        try {
-//                            dbManager.psInsert.setString(1, newName);
-//                            dbManager.psInsert.setDouble(2, newTime);
-//                            dbManager.psInsert.executeUpdate();
-//                        }
-//                        catch (SQLException err) {
-//                            System.out.println("There was an error adding to the database.");
-//                            err.printStackTrace();
-//                        }
+                        String newName = dbManager.getTempName();
+                        double newTime = dbManager.getTempTime();
+
+                        try {
+                            dbManager.psInsert.setString(1, newName);
+                            dbManager.psInsert.setDouble(2, newTime);
+                            dbManager.psInsert.executeUpdate();
+                        }
+                        catch (SQLException err) {
+                            System.out.println("There was an error adding to the database.");
+                            err.printStackTrace();
+                        }
+
+
 
                         break;
                     case 2:     // Update

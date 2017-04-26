@@ -31,6 +31,22 @@ public class CubesDB {
     protected String tempName;
     protected double tempTime;
 
+    // Getters and Setters
+    public String getTempName() {
+        return tempName;
+    }
+    public void setTempName(String tempName) {
+        this.tempName = tempName;
+    }
+    public double getTempTime() {
+        return tempTime;
+    }
+    public void setTempTime(double tempTime) {
+        this.tempTime = tempTime;
+    }
+
+
+
     CubesDB() {
         table_name = "cubestbl";
         name_col = "Bot_Name";
