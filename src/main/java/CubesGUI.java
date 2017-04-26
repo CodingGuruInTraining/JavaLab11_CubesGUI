@@ -53,7 +53,7 @@ public class CubesGUI extends JFrame {
                     return;
                 }
 
-                double newTime = Input.checkDoubleInput(newTimeStr);
+                double newTime = verifyTime(newTimeStr);
                 while (newTime == 0) {
                     return;
                 }
@@ -104,10 +104,12 @@ public class CubesGUI extends JFrame {
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String newName;
+                double newTime;
                 switch (option) {
                     case 1:     // Add
-                        String newName = dbManager.getTempName();
-                        double newTime = dbManager.getTempTime();
+                        newName = dbManager.getTempName();
+                        newTime = dbManager.getTempTime();
 
                         try {
                             dbManager.psInsert.setString(1, newName);
@@ -124,8 +126,19 @@ public class CubesGUI extends JFrame {
 
                         break;
                     case 2:     // Update
+                        newTime = verifyTime(timeTextField.getText());
+                        while (newTime == 0) {
+                            return;
+                        }
 
-
+                        try {
+                            dbManager.psUpdate.setDouble(1, newTime);
+                            dbManager.psUpdate.setString(2, botTextField.getText());
+                            dbManager.psUpdate.executeUpdate();
+                        }
+                        catch (SQLException err) {
+                            err.printStackTrace();
+                        }
                         botTextField.setEnabled(true);
                         break;
                     case 3:     // Delete
@@ -149,14 +162,14 @@ public class CubesGUI extends JFrame {
         return true;
     }
 
-    private boolean verifyTime(String timeStr) {
+    private double verifyTime(String timeStr) {
         double time = Input.checkDoubleInput(timeStr);
         if (time == 0) {
             JOptionPane.showConfirmDialog(rootPanel, "Please enter a time",
                     "Need Time", JOptionPane.OK_OPTION);
-            return false;
+            return 0;
         }
-        return true;
+        return time;
     }
 
     private void refreshList(LinkedList<Bot> bots) {
