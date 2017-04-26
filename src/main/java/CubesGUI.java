@@ -96,7 +96,10 @@ public class CubesGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 option = 3;
-
+                JOptionPane.showConfirmDialog(rootPanel, "Click on the 'Confirm' " +
+                                "button if you are serious about deleting this entry.",
+                        "Confirm Deletion",
+                        JOptionPane.OK_OPTION);
                 confirmButton.setVisible(true);
             }
         });
@@ -142,10 +145,15 @@ public class CubesGUI extends JFrame {
                         botTextField.setEnabled(true);
                         break;
                     case 3:     // Delete
-
+//                        try {
+//// TODO did you make a delete feature?
+//                        }
+//                        catch (SQLException err) {
+//                            err.printStackTrace();
+//                        }
                         break;
                 }
-
+// TODO remove object from linkedlist where applicable
                 clearFields();
                 option = 0;
                 confirmButton.setVisible(false);
