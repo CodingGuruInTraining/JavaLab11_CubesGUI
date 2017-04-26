@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 /**
  * Created by hl4350hb on 4/19/2017.
@@ -47,20 +48,29 @@ public class CubesGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String newName = botTextField.getText();
-                if (newName == "" || newName == null) {
-// TODO display a message somehow.
-                    JOptionPane.showConfirmDialog(rootPanel, "Please enter a name.",
-                            "Need Name", JOptionPane.OK_OPTION);
+                String newTimeStr = timeTextField.getText();
+                while (!verifyName(newName)) {
                     return;
                 }
 
-                double newTime = Input.checkDoubleInput(timeTextField.getText());
-                if (newTime == 0) {
-// TODO display a message somehow.
-                    JOptionPane.showConfirmDialog(rootPanel, "Please enter a time",
-                            "Need Time", JOptionPane.OK_OPTION);
+                double newTime = Input.checkDoubleInput(newTimeStr);
+                while (newTime == 0) {
                     return;
                 }
+//                if (newName == "" || newName == null) {
+//// TODO display a message somehow.
+//                    JOptionPane.showConfirmDialog(rootPanel, "Please enter a name.",
+//                            "Need Name", JOptionPane.OK_OPTION);
+//                    return;
+//                }
+
+//                double newTime = Input.checkDoubleInput(timeTextField.getText());
+//                if (newTime == 0) {
+//// TODO display a message somehow.
+//                    JOptionPane.showConfirmDialog(rootPanel, "Please enter a time",
+//                            "Need Time", JOptionPane.OK_OPTION);
+//                    return;
+//                }
 
                 dbManager.setTempName(newName);
                 dbManager.setTempTime(newTime);
@@ -73,8 +83,11 @@ public class CubesGUI extends JFrame {
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
+                option = 2;
+                Bot b = (Bot)botList.getSelectedValue();
+                botTextField.setText(b.botName);
+                timeTextField.setText(b.botTime + "");
+                botTextField.setEnabled(false);
                 confirmButton.setVisible(true);
             }
         });
@@ -82,11 +95,12 @@ public class CubesGUI extends JFrame {
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                option = 3;
 
                 confirmButton.setVisible(true);
             }
         });
+
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -105,22 +119,57 @@ public class CubesGUI extends JFrame {
                             err.printStackTrace();
                         }
 
-
+                        dbManager.allBots.add(new Bot(newName, newTime));
+                        refreshList(dbManager.allBots);
 
                         break;
                     case 2:     // Update
 
+
+                        botTextField.setEnabled(true);
                         break;
                     case 3:     // Delete
 
                         break;
                 }
 
-                botTextField.setText("");
-                timeTextField.setText("");
+                clearFields();
                 option = 0;
                 confirmButton.setVisible(false);
             }
         });
+    }
+
+    private boolean verifyName(String name) {
+        if (name == "" || name == null) {
+            JOptionPane.showConfirmDialog(rootPanel, "Please enter a name.",
+                    "Need Name", JOptionPane.OK_OPTION);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean verifyTime(String timeStr) {
+        double time = Input.checkDoubleInput(timeStr);
+        if (time == 0) {
+            JOptionPane.showConfirmDialog(rootPanel, "Please enter a time",
+                    "Need Time", JOptionPane.OK_OPTION);
+            return false;
+        }
+        return true;
+    }
+
+    private void refreshList(LinkedList<Bot> bots) {
+        listModel.clear();
+        for (Bot b : bots) { listModel.addElement(b); }
+    }
+
+    private void clearFields() {
+        botTextField.setText("");
+        timeTextField.setText("");
+    }
+
+    private void disableButtons(boolean x) {
+// TODO code method and add to the event listeners
     }
 }
