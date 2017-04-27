@@ -70,10 +70,11 @@ public class CubesGUI extends JFrame {
 //                    return;
 //                }
 
+//                // Setting so validated data remains intact.
                 dbManager.setTempName(newName);
                 dbManager.setTempTime(newTime);
-
                 option = 1;
+
                 confirmButton.setVisible(true);
             }
         });
@@ -87,6 +88,7 @@ public class CubesGUI extends JFrame {
                 timeTextField.setText(b.botTime + "");
                 botTextField.setEnabled(false);
                 confirmButton.setVisible(true);
+
             }
         });
 
@@ -99,6 +101,7 @@ public class CubesGUI extends JFrame {
                         "Confirm Deletion",
                         JOptionPane.OK_OPTION);
                 confirmButton.setVisible(true);
+
             }
         });
 
@@ -111,16 +114,16 @@ public class CubesGUI extends JFrame {
                     case 1:     // Add
                         newName = dbManager.getTempName();
                         newTime = dbManager.getTempTime();
-
-                        try {
-                            dbManager.psInsert.setString(1, newName);
-                            dbManager.psInsert.setDouble(2, newTime);
-                            dbManager.psInsert.executeUpdate();
-                        }
-                        catch (SQLException err) {
-                            System.out.println("There was an error adding to the database.");
-                            err.printStackTrace();
-                        }
+                        dbManager.makeChanges(1, newName, newTime);
+//                        try {
+//                            dbManager.psInsert.setString(1, newName);
+//                            dbManager.psInsert.setDouble(2, newTime);
+//                            dbManager.psInsert.executeUpdate();
+//                        }
+//                        catch (SQLException err) {
+//                            System.out.println("There was an error adding to the database.");
+//                            err.printStackTrace();
+//                        }
 
                         dbManager.allBots.add(new Bot(newName, newTime));
                         refreshList(dbManager.allBots);
@@ -131,15 +134,15 @@ public class CubesGUI extends JFrame {
                         if (newTime == 0) {
                             return;
                         }
-
-                        try {
-                            dbManager.psUpdate.setDouble(1, newTime);
-                            dbManager.psUpdate.setString(2, botTextField.getText());
-                            dbManager.psUpdate.executeUpdate();
-                        }
-                        catch (SQLException err) {
-                            err.printStackTrace();
-                        }
+                        dbManager.makeChanges(2, botTextField.getText(), newTime);
+//                        try {
+//                            dbManager.psUpdate.setDouble(1, newTime);
+//                            dbManager.psUpdate.setString(2, botTextField.getText());
+//                            dbManager.psUpdate.executeUpdate();
+//                        }
+//                        catch (SQLException err) {
+//                            err.printStackTrace();
+//                        }
                         botTextField.setEnabled(true);
                         break;
                     case 3:     // Delete
@@ -149,6 +152,7 @@ public class CubesGUI extends JFrame {
 //                        catch (SQLException err) {
 //                            err.printStackTrace();
 //                        }
+                        dbManager.makeChanges(3, ((Bot)botList.getSelectedValue()).botName, 0);
                         break;
                 }
 // TODO remove object from linkedlist where applicable
