@@ -55,20 +55,7 @@ public class CubesGUI extends JFrame {
                 if (newTime == 0) {
                     return;
                 }
-//                if (newName == "" || newName == null) {
-//// TODO display a message somehow.
-//                    JOptionPane.showConfirmDialog(rootPanel, "Please enter a name.",
-//                            "Need Name", JOptionPane.OK_OPTION);
-//                    return;
-//                }
 
-//                double newTime = Input.checkDoubleInput(timeTextField.getText());
-//                if (newTime == 0) {
-//// TODO display a message somehow.
-//                    JOptionPane.showConfirmDialog(rootPanel, "Please enter a time",
-//                            "Need Time", JOptionPane.OK_OPTION);
-//                    return;
-//                }
 
 //                // Setting so validated data remains intact.
                 dbManager.setTempName(newName);
@@ -110,6 +97,7 @@ public class CubesGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String newName;
                 double newTime;
+                Bot b = (Bot)botList.getSelectedValue();
                 switch (option) {
                     case 1:     // Add
                         newName = dbManager.getTempName();
@@ -134,7 +122,7 @@ public class CubesGUI extends JFrame {
                         if (newTime == 0) {
                             return;
                         }
-                        dbManager.makeChanges(2, botTextField.getText(), newTime);
+                        dbManager.makeChanges(2, b.botName, newTime);
 //                        try {
 //                            dbManager.psUpdate.setDouble(1, newTime);
 //                            dbManager.psUpdate.setString(2, botTextField.getText());
@@ -143,6 +131,9 @@ public class CubesGUI extends JFrame {
 //                        catch (SQLException err) {
 //                            err.printStackTrace();
 //                        }
+//                        dbManager.allBots.remove(b);
+                        b.botTime = newTime;
+                        refreshList(dbManager.allBots);
                         botTextField.setEnabled(true);
                         break;
                     case 3:     // Delete
@@ -152,7 +143,9 @@ public class CubesGUI extends JFrame {
 //                        catch (SQLException err) {
 //                            err.printStackTrace();
 //                        }
-                        dbManager.makeChanges(3, ((Bot)botList.getSelectedValue()).botName, 0);
+                        dbManager.makeChanges(3, b.botName, 0);
+                        dbManager.allBots.remove(b);
+                        refreshList(dbManager.allBots);
                         break;
                 }
 // TODO remove object from linkedlist where applicable
