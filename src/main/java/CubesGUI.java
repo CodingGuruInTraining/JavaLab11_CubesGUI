@@ -38,10 +38,6 @@ public class CubesGUI extends JFrame {
             listModel.addElement(b);
         }
 
-
-
-
-
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -55,7 +51,6 @@ public class CubesGUI extends JFrame {
                 if (newTime == 0) {
                     return;
                 }
-
 
 //                // Setting so validated data remains intact.
                 dbManager.setTempName(newName);
@@ -103,18 +98,8 @@ public class CubesGUI extends JFrame {
                         newName = dbManager.getTempName();
                         newTime = dbManager.getTempTime();
                         dbManager.makeChanges(1, newName, newTime);
-//                        try {
-//                            dbManager.psInsert.setString(1, newName);
-//                            dbManager.psInsert.setDouble(2, newTime);
-//                            dbManager.psInsert.executeUpdate();
-//                        }
-//                        catch (SQLException err) {
-//                            System.out.println("There was an error adding to the database.");
-//                            err.printStackTrace();
-//                        }
 
                         dbManager.allBots.add(new Bot(newName, newTime));
-                        refreshList(dbManager.allBots);
 
                         break;
                     case 2:     // Update
@@ -123,33 +108,20 @@ public class CubesGUI extends JFrame {
                             return;
                         }
                         dbManager.makeChanges(2, b.botName, newTime);
-//                        try {
-//                            dbManager.psUpdate.setDouble(1, newTime);
-//                            dbManager.psUpdate.setString(2, botTextField.getText());
-//                            dbManager.psUpdate.executeUpdate();
-//                        }
-//                        catch (SQLException err) {
-//                            err.printStackTrace();
-//                        }
-//                        dbManager.allBots.remove(b);
+
                         b.botTime = newTime;
-                        refreshList(dbManager.allBots);
                         botTextField.setEnabled(true);
                         break;
                     case 3:     // Delete
-//                        try {
-//// TODO did you make a delete feature?
-//                        }
-//                        catch (SQLException err) {
-//                            err.printStackTrace();
-//                        }
+
                         dbManager.makeChanges(3, b.botName, 0);
                         dbManager.allBots.remove(b);
-                        refreshList(dbManager.allBots);
+
                         break;
                 }
 // TODO remove object from linkedlist where applicable
                 clearFields();
+                refreshList(dbManager.allBots);
                 option = 0;
                 confirmButton.setVisible(false);
             }
@@ -186,6 +158,9 @@ public class CubesGUI extends JFrame {
     }
 
     private void disableButtons(boolean x) {
+        addButton.setEnabled(!x);
+        updateButton.setEnabled(!x);
+        deleteButton.setEnabled(!x);
 // TODO code method and add to the event listeners
     }
 }
