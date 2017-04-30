@@ -9,8 +9,8 @@ public class CubesDB {
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     // Connection string.
     static final String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/cubes";
-    static final String USER = "mf8";
-    static final String PASSWORD = "pw1";
+    static final String USER = "mf";
+    static final String PASSWORD = "pw";
 
     // Defines table name variable along with its columns.
     private String table_name;
