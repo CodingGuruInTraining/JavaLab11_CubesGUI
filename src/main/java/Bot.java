@@ -1,5 +1,7 @@
 /**
- * Created by MarkFox on 4/23/2017.
+ * This Class simply defines a Bot object. It holds simple data
+ * about each Bot and defines an override toString method for
+ * displaying in JList.
  */
 public class Bot {
     protected String botName;

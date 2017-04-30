@@ -1,7 +1,9 @@
 //package com.mark;
 
+import javax.swing.*;
+
 /**
- * This class provides input methods to capture and parse
+ * This class provides input method to capture and parse
  * User's input values.
  */
 public class Input {
@@ -16,12 +18,14 @@ public class Input {
                     if (doubleInput >= 0) {
                         return doubleInput;
                     } else {
-// TODO replace with a pop-up or something
-                        System.out.println("Please enter a positive number.");
+                        JOptionPane.showMessageDialog(null, "Please enter a positive number.");
+//// TODO replace with a pop-up or something
+//                        System.out.println("Please enter a positive number.");
                     }
                 } catch (NumberFormatException err) {
 // TODO replace with a pop-up or something too
-                    System.out.println("Please type a positive number.");
+                    JOptionPane.showMessageDialog(null, "Please type a positive number.");
+//                    System.out.println("Please type a positive number.");
                 }
             }
 //        }

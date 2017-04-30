@@ -85,6 +85,14 @@
           <text value="Confirm"/>
         </properties>
       </component>
+      <component id="fe1f6" class="javax.swing.JLabel" binding="confirmLabel">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Click on the 'Confirm' button to submit change."/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>
