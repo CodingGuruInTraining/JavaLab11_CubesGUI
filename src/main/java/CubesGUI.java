@@ -90,11 +90,6 @@ public class CubesGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 option = 3;
-//                JOptionPane.showConfirmDialog(rootPanel, "Click on the 'Confirm' " +
-//                                "button if you are serious about deleting this entry.",
-//                        "Confirm Deletion",
-//                        JOptionPane.OK_OPTION);
-
                 // Displays label and button.
                 confirmLabel.setVisible(true);
                 confirmButton.setVisible(true);
@@ -183,10 +178,4 @@ public class CubesGUI extends JFrame {
         botTextField.setText("");
         timeTextField.setText("");
     }
-
-//    private void disableButtons(boolean x) {
-//        addButton.setEnabled(!x);
-//        updateButton.setEnabled(!x);
-//        deleteButton.setEnabled(!x);
-//    }
 }

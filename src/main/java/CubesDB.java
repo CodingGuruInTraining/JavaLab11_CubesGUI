@@ -17,16 +17,6 @@ public class CubesDB {
     private String name_col;
     private String time_col;
 
-//    protected Connection connection;
-//    protected Statement statement;
-//
-//    protected String prepStatInsert;
-//    protected PreparedStatement psInsert;
-//    protected String prepStatUpdate;
-//    protected PreparedStatement psUpdate;
-//    protected String prepStatDelete;
-//    protected PreparedStatement psDelete;
-
     // Defines variables for using database.
     protected ResultSet rs;
     protected String fetchAll;
@@ -65,27 +55,10 @@ public class CubesDB {
         // Connects to database using variables defined above.
         try (Connection connection = DriverManager.getConnection(DB_CONNECTION_URL, USER, PASSWORD);
         Statement statement = connection.createStatement()) {
-
-//            connection = connection2;
-//            statement = statement2;
-
-//            String dropTable = "drop table if exists " + table_name;
-//            statement.executeUpdate(dropTable);
-
             // Makes a SQL string to create table if it doesn't already exist.
             String commandText = "create table if not exists " + table_name + " (" + name_col + " varchar(50), " + time_col + " double)";
             statement.executeUpdate(commandText);
             System.out.println("Table has been created maybe.");
-
-// TODO remove static values once database is set up.
-//            // Makes two arrays of static values.
-//            String[] allNames = {"Cubestormer II robot", "Fakhri Raihaan (using his feet)", "Ruxin Liu (age 3)", "Mats Valk (human record holder)"};
-//            double[] allTimes = {5.270, 27.93, 99.33, 6.27};
-
-//            prepStatInsert = "insert into " + table_name + " values ( ? , ? )";
-//            psInsert = connection.prepareStatement(prepStatInsert);
-//            prepStatUpdate = "update " + table_name + " set " + time_col + " = ? where " + name_col + " = ?";
-//            psUpdate = connection.prepareStatement(prepStatUpdate);
 
             // Sets select all query string and performs query.
             fetchAll = "select * from " + table_name;
@@ -98,14 +71,6 @@ public class CubesDB {
                 double bottime = rs.getDouble(time_col);
                 allBots.add(new Bot(botname, bottime));
             }
-//            for (int x = 0; x < allNames.length; x++) {
-//                psInsert.setString(1, allNames[x]);
-//                psInsert.setDouble(2, allTimes[x]);
-//                psInsert.executeUpdate();
-//                allBots.add(new Bot(allNames[x], allTimes[x]));
-//            }
-
-
 
             // Closes connection.
             rs.close();
@@ -157,8 +122,6 @@ public class CubesDB {
             // Closes connection.
             connection.close();
             statement.close();
-//            PreparedStatement prepStatement = connection.prepareStatement(prepStat);
-
         }
         // Catch for SQL errors.
         catch (SQLException err) {
